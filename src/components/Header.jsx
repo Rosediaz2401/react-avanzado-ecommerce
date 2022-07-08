@@ -2,8 +2,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import Categorias from "../pages/Categorias";
 import Home from "../pages/Home"
 import Login from "../pages/Login";
-import microphone from '../Assets/images/micrófono.png'
-import search from '../Assets/images/lupa.png'
+// import microphone from '../Assets/images/microfono.png'
+// import search from '../Assets/images/lupa.png'
 import logo from '../Assets/images/logo.png'
 
 import '../Styles/header.css'
