@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Categorias from "../pages/Categorias";
 import Home from "../pages/Home"
@@ -8,11 +9,41 @@ import logo from '../Assets/images/logo.png'
 
 import '../Styles/header.css'
 
+
+
 const Header = () => {
 
+    const InputValue = ({ producto, productosFiltrados, getdata }) => {
+        console.log(producto);
+        const [buscador, setbuscador] = useState("")
+    
+        useEffect(() => {
+          let resultado = [];
+        
+          if (buscador !== '') {
+              resultado = producto.filter(item => item.product_name.toLocaleLowerCase().includes(buscador))
+              console.log(resultado);
+          }
+          else {
+              getdata();
+          }
+          console.log(resultado);
+          productosFiltrados(resultado, 'hola', true)
+    
+    
+      }, [buscador])
 
-
-
+   
+      const searchItem = (valorInput) => {
+    
+          setbuscador(valorInput)
+    
+    
+      }
+      
+    }  
+   
+  
     return (
         <>
             <div className="container">
@@ -27,8 +58,9 @@ const Header = () => {
                         <div className='main-input'>
                             <div className='main-input-container'>
                                 {/* <img src={search} alt="search" /> */}
-                                {<input className="input-header" type="text" placeholder='Search...'
-                                    onChange={(e) => searchItem(e.target.value)} />}
+                                {<input className="input-header" type="text" placeholder='Search...' 
+                                onChange={(e) => console.log(e.target.value)}
+                                    />}
                                 {/* <img src={microphone} alt="microphone" /> */}
                             </div>
                         </div>
@@ -59,5 +91,6 @@ const Header = () => {
         </>
     )
 }
+
 
 export default Header

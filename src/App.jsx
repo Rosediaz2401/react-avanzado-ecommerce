@@ -8,18 +8,40 @@ import ProductoDetalle from "./pages/ProductoDetalle"
 import Footer from "./components/Footer";
 import Error404 from "./pages/Error404";
 import './App.css'
+import axios from "axios";
 
 
 
 function App() {
 
+  const [producto, setproductos] = useState([]);
+  // const [loading, setloading] = useState(false);
+
+  const getProductos = async () => {
+    // setloading(false)
+    const res = await axios.get('https://ecomerce-master.herokuapp.com/api/v1/item/')
+    console.log('api', res.data);
+    setproductos(res.data)
+    // setloading(true)
+  }
+
+
+  useEffect(() => {
+    getProductos();
+  }, [])
+
+  useEffect(() => {
+    console.log(producto);
+  }, [producto])
+
+
   return (
 
     <div className="App">
-      <Header />
+      <Header producto={producto} productosFiltrados={(productosFiltrados) => setproductos(productosFiltrados)} getdata={getProductos}  />
       <header className="images-container">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home producto={producto} productosFiltrados={(productosFiltrados) => setproductos(productosFiltrados)} getdata={getProductos}   />} />
           <Route path="/categorias" element={<Categorias />}>
             <Route path=":pid" element={<ProductoDetalle />} />
           </Route>
