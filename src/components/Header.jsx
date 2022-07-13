@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import Categorias from "../pages/Categorias";
+import { useProductContext } from "./context/ProductosContext";
+
 import Home from "../pages/Home"
 import Login from "../pages/Login";
-// import microphone from '../Assets/images/microfono.png'
-// import search from '../Assets/images/lupa.png'
 import logo from '../Assets/images/logo.png'
+import Categorias from "../pages/Categorias";
 
 import '../Styles/header.css'
 
@@ -13,37 +13,29 @@ import '../Styles/header.css'
 
 const Header = () => {
 
-    const InputValue = ({ producto, productosFiltrados, getdata }) => {
-        console.log(producto);
-        const [buscador, setbuscador] = useState("")
-    
-        useEffect(() => {
-          let resultado = [];
+        function filtrarProductos(e) {
+            let resultado = [];
         
-          if (buscador !== '') {
-              resultado = producto.filter(item => item.product_name.toLocaleLowerCase().includes(buscador))
-              console.log(resultado);
-          }
-          else {
-              getdata();
-          }
-          console.log(resultado);
-          productosFiltrados(resultado, 'hola', true)
-    
-    
-      }, [buscador])
+            if (buscador !== '') {
+                resultado = producto.filter(item => item.product_name.toLocaleLowerCase().includes(buscador))
+                console.log(resultado);
+            }
+            else {
+                getdata();
+            }
+            console.log(resultado);
+            productosFiltrados(resultado, 'hola', true)
+        }
 
-   
-      const searchItem = (valorInput) => {
+
+    const searchItem = (valorInput) => {
     
-          setbuscador(valorInput)
+        setBuscador(valorInput)
     
-    
-      }
-      
+            
+        }
     }  
-   
-  
+
     return (
         <>
             <div className="container">
@@ -59,7 +51,7 @@ const Header = () => {
                             <div className='main-input-container'>
                                 {/* <img src={search} alt="search" /> */}
                                 {<input className="input-header" type="text" placeholder='Search...' 
-                                onChange={(e) => console.log(e.target.value)}
+                                onChange={(e) => filtrarProductos(e.target.value)}
                                     />}
                                 {/* <img src={microphone} alt="microphone" /> */}
                             </div>
@@ -90,7 +82,6 @@ const Header = () => {
 
         </>
     )
-}
 
 
 export default Header

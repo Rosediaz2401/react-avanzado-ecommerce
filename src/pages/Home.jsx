@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import axios from 'axios'
 import '../Styles/home.css'
 
+
 const Home = () => {
 
     const [productos, setProductos] = useState([])
@@ -33,7 +34,7 @@ const Home = () => {
                 productos.map((producto) => (
                     < div className="app-header" >
                         <div className="child">
-                            <div key={producto._id} className="card">
+                            <div className="card">
 
                                 <img className="imagen" src={validacionUrl(producto.image) ? producto.image : validacionUrl(producto.images) ? producto.images : producto.images || "https://cf.geekdo-images.com/camo/cba429883803dadea626df689cdbf3ddc0dc1bba/68747470733a2f2f692e696d6775722e636f6d2f456161485557462e6a7067"} alt="" />
 
